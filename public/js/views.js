@@ -44,4 +44,21 @@ var Forever = Forever || {};
 
   });
 
+  Forever.ArticlePreviewView = Backbone.View.extend({
+
+    tagName: 'div',
+    className: 'col-md-offset-2 col-md-8 articlePreview',
+
+    template: _.template( $('#articlePreviewTemplate').html() ),
+
+    render: function() {
+      var html = this.template({
+        article: this.model
+      });
+      this.$el.html(html);
+      return this;
+    }
+
+  });
+
 })();

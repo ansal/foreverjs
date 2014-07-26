@@ -12,7 +12,9 @@ exports.index = function(req, res){
   // user is logged in
   // fetch his saved articles from database
   // pass it to jade to bootstrap models
-  Article.find({user: req.user._id}, function(err, articles){
+  Article.find({user: req.user._id})
+  .sort('-date')
+  .exec(function(err, articles){
     
     if(err) {
       console.log(err);

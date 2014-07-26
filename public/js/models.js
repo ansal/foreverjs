@@ -8,11 +8,10 @@ var Forever = Forever || {};
 
   Forever.Article = Backbone.Model.extend({
     defaults: {
-      title: 'Untitled Article',
       url: '#',
-      article: 'No content to preview',
       tags: []
-    }
+    },
+    idAttribute: '_id'
   });
 
 })();

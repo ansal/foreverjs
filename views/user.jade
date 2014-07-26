@@ -26,7 +26,7 @@ block pageScripts
 block templates
   script#articleBoxTemplate(type="text/template")
     h4 
-      a(href="#") <%= article.get('title') %>
+      a(href!="#/article/<%= article.get('_id') %>") <%= article.get('title') %>
     hr
     p <%= article.get('article').slice(0, 100) %> ...
     hr
@@ -38,3 +38,9 @@ block templates
       |<% _.each(article.get('tags'), function(tag){ %>
       a(href="#")<%= tag %>,
       |<%  }); %>
+
+  script#articlePreviewTemplate(type="text/template")
+    h4 <%= article.get('title') %>
+    hr
+    p
+      <%= article.get('article') %>
