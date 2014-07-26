@@ -3,8 +3,32 @@ extends layout
 block content
   div.row
     div.col-md-12
-      h3
+      h5.pull-right
         | Welcome 
         = user.name
         |!
-      a.btn.btn-primary(href="/logout") Logout Now!      
+
+  div.row.articleContainer
+    each i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      div.col-md-3.articleBox
+        h4 
+          a(href="#") An introduction to JS
+        hr
+        p JavaScript (JS) is a dynamic computer programming language.[5] It is most commonly used as part of web browsers, whose implementations allow client-side scripts to interact...
+        small Saved on July 13, 2014
+        br
+        small Tags: 
+          a(href="#") tag1, 
+          a(href="#") tag2
+      div.col-md-3.articleBox
+        h4 
+          a(href="#") An introduction to JS
+        hr
+        p JavaScript!
+        small Saved on July 13, 2014
+        br
+        small Tags: 
+          a(href="#") tag1, 
+          a(href="#") tag2
+          a(href="#") tag1, 
+          a(href="#") tag2

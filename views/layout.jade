@@ -1,8 +1,9 @@
 doctype html
 html
   head
-    title Welcome!
+    title Forever JS!
     link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/styles.css')
   body
 
     // navigation bar
@@ -14,7 +15,12 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="/") Your App Name!
+          a.navbar-brand(href="/") Forever JS
+
+        div.collapse.navbar-collapse#navbar-collapse-links-1
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="/app/logout") Logout
 
     // app body
     div.container-fluid
@@ -24,8 +30,11 @@ html
       div.row
         div.col-md-12
           hr
-          p.pull-right This project is hosted on github at 
-            a(href="https://github.com/ansal/node-express-mongoose-boilerplate") https://github.com/ansal/node-express-mongoose-boilerplate.
+          p.pull-right Forever is an opensource app written by 
+            a(href="http://ansals.me") me
+            |. Get source code over 
+            a(href="https://github.com/ansal/foreverjs") here
+            |.
 
     // js libs
     script(src="/js/lib/jquery.min.js")
