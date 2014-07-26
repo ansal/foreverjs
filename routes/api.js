@@ -1,5 +1,7 @@
 // rest api for the backbone client
 
+var readability = require('node-readability');
+
 // article model
 var Article  = require('../models/article.js').Article;
 
@@ -22,12 +24,9 @@ module.exports.AllArticles = function(req, res) {
 // POST /api/article
 module.exports.CreateArticle = function(req, res) {
   
-  // validate all fields
-  // can this be done better?
-  var title = req.body.title;
+  // validate url field
   var url = req.body.url;
-  var article = req.body.article;
-  if(!title || !url || !article) {
+  if(!url) {
     res.json(400, {error: true});
     return;
   }
@@ -38,21 +37,40 @@ module.exports.CreateArticle = function(req, res) {
     tags = req.body.tags.split(',');
   }
 
-  var articleObject = new Article({
+  // build the article object to be saved
+  // defaults for title and articles are also updated
+  var article = {
     user: req.user,
-    title: title,
+    title: url,
     url: url,
-    article: article,
+    article: 'No content to show!',
     tags: tags
-  });
-  articleObject.save(function(err){
+  }
+
+  // use readability module to try extracting the main content of the page
+  readability(url, function(err, extract, meta){
+    
+    // if an error occured, just save the object without the article &
+    // title content
     if(err) {
       console.log(err);
-      res.send(500, {error:true});
-      return;
+    } else {
+      article.title = extract.title;
+      article.article = extract.content;
     }
-    res.json(articleObject);
+
+    // finally save the model
+    var articleObject = new Article(article);
+    articleObject.save(function(err){
+      if(err) {
+        console.log(err);
+        res.send(500, {error:true});
+        return;
+      }
+      res.json(articleObject);
+    });
   });
+
 };
 
 // deletes an article

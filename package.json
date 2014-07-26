@@ -10,6 +10,7 @@
     "express": "3.4.8",
     "jade": "*",
     "mongoose": "^3.8.13",
+    "node-readability": "^0.3.2",
     "nodemon": "^1.2.1",
     "passport": "^0.2.0",
     "passport-facebook": "^1.0.3",
