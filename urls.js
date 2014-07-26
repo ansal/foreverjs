@@ -1,7 +1,9 @@
 // URLS defined by all the routes
 
-var pages = require('./routes/pages.js');
 var config = require('./config.js');
+var utils = require('./utils.js');
+var pages = require('./routes/pages.js');
+var apis = require('./routes/api.js');
 
 module.exports = function(app, passport) {
 
@@ -37,4 +39,8 @@ module.exports = function(app, passport) {
   app.get('/', pages.index);
   app.get('/logout', pages.logout);
 
+  // rest apis
+  app.get('/api/article', utils.restrictUser, apis.AllArticles);
+  app.post('/api/article', utils.restrictUser, apis.CreateArticle);
+  app.delete('/api/article/:id', utils.restrictUser, apis.DeleteArticle);
 }
