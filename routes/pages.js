@@ -1,4 +1,6 @@
-// A sample express route module
+// Page routes for ForeverJS app
+
+var Article = require('../models/article.js').Article;
 
 exports.index = function(req, res){
   
@@ -8,8 +10,26 @@ exports.index = function(req, res){
   }
 
   // user is logged in
-  res.render('user', {user: req.user});
+  // fetch his saved articles from database
+  // pass it to jade to bootstrap models
+  Article.find({user: req.user._id}, function(err, articles){
+    
+    if(err) {
+      console.log(err);
+      res.json(500, {
+        error: true
+      });
+      return;
+    }
 
+    console.log(articles)
+
+    res.render('user', {
+      user: req.user,
+      articles: JSON.stringify(articles)
+    });
+
+  });
 };
 
 // logouts a user

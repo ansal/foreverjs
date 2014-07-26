@@ -19,22 +19,24 @@ html
 
         div.collapse.navbar-collapse#navbar-collapse-links-1
           ul.nav.navbar-nav.navbar-right
-            li
-              a(href="/app/logout") Logout
+            block navLinks
 
     // app body
-    div.container-fluid
+    div.container-fluid#app-container
 
       block content
 
       div.row
         div.col-md-12
           hr
-          p.pull-right Forever is an opensource app written by 
+          p.pull-right ForeverJS is an opensource app written by 
             a(href="http://ansals.me") me
             |. Get source code over 
             a(href="https://github.com/ansal/foreverjs") here
             |.
+
+    // js templates
+    block templates
 
     // js libs
     script(src="/js/lib/jquery.min.js")
@@ -48,3 +50,6 @@ html
     script(src="/js/views.js")
     script(src="/js/routes.js")
     script(src="/js/app.js")
+
+    // page specific scripts
+    block pageScripts

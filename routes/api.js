@@ -32,12 +32,18 @@ module.exports.CreateArticle = function(req, res) {
     return;
   }
 
+  // tags are a represented by a string seperated by comma
+  var tags = [];
+  if (typeof req.body.tags === 'string') {
+    tags = req.body.tags.split(',');
+  }
+
   var articleObject = new Article({
     user: req.user,
     title: title,
     url: url,
     article: article,
-    tags: ['tag1', 'tag2']
+    tags: tags
   });
   articleObject.save(function(err){
     if(err) {

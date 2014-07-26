@@ -9,7 +9,8 @@ var ArticleSchema = new Schema({
   title: String,
   url: String,
   article: String,
-  tags: [String]
+  tags: [String],
+  date: { type: Date, default: Date.now }
 });
  
 module.exports.Article = mongoose.model('Article', ArticleSchema);
