@@ -23,7 +23,8 @@ var Forever = Forever || {};
   Forever.AppState = {};
 
   // create a new list view and listen for events
-  Forever.homeListView = new Forever.ArticleListView();
+  Forever.AppState.currentView = new Forever.ArticleListView();
+  // create an AddArticleView for adding articles
   Forever.addArticleView = new Forever.AddArticleView();
 
   // start backbone routing

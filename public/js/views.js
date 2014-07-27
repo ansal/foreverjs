@@ -26,8 +26,6 @@ var Forever = Forever || {};
     addOneArticleBox: function(article) {
       var view = new ArticleBoxView({ model: article});
       this.$appContainer.prepend(view.render().$el);
-      // hide progress bar
-      $progressAnim.hide();
     },
 
     addAllArticleBoxes: function() {
@@ -157,7 +155,14 @@ var Forever = Forever || {};
         url: url,
         tags: tags
       }, {
-        wait: true
+        wait: true,
+        success: function() {
+          $progressAnim.hide();
+        },
+        error: function(err) {
+          window.alert('There was an error saving your article. Please try again');
+          $progressAnim.hide();
+        }
       });
       this.$newArticleModal.modal('hide');
 

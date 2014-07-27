@@ -21,15 +21,22 @@ var Forever = Forever || {};
         window.location.href = '/';
         return;
       }
+      if(Forever.AppState.currentView) {
+        Forever.AppState.currentView.remove();
+      }
+      Forever.AppState.currentView = new Forever.ArticleListView();
       $container.html('');
-      Forever.homeListView.addAllArticleBoxes();
+      Forever.AppState.currentView.addAllArticleBoxes();
       $progressAnim.hide();
     },
 
     showArticle: function(id) {
+      if(Forever.AppState.currentView) {
+        Forever.AppState.currentView.remove();
+      }
       var article = Forever.Articles.get(id);
-      var view = new Forever.ArticlePreviewView({model: article});
-      $container.html( view.render().$el );
+      Forever.AppState.currentView = new Forever.ArticlePreviewView({model: article});
+      $container.html( Forever.AppState.currentView.render().$el );
     }
 
   });

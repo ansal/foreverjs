@@ -27,7 +27,7 @@ block navLinks
 block templates
   script#articleBoxTemplate(type="text/template")
     h4 
-      a(href!="#/article/<%= article.get('_id') %>") <%= article.get('title') %>
+      a(href!="#/article/<%= article.get('_id') %>") <%= article.get('title').slice(0, 50) %><%= article.get('title').length >=50 ? '...' : '' %>
     small.text-muted(style="margin-bottom:-100px")
       |<%= Forever.utils.printDate(article.get('date')) %>
     hr
