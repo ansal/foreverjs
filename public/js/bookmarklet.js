@@ -16,7 +16,7 @@
   }
 
   function initBookmarklet() {
-    $.getJSON(API_URL, {
+    jQuery.getJSON(API_URL, {
       url: window.location.href
     }).done(function(data){
       alert('Saved to ForeverJS!');
