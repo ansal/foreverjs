@@ -4,7 +4,7 @@ html
     title Forever JS!
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/styles.css')
-  body
+  body#app-body
 
     // navigation bar
     nav.navbar.navbar-default(role="navigation")
@@ -16,7 +16,7 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href="/") ForeverJS 
-            img(src="/img/loading.gif", height="25px" id="progressAnim")
+            img#progressAnim(src="/img/loading.gif", height="25px")
 
         div.collapse.navbar-collapse#navbar-collapse-links-1
           ul.nav.navbar-nav.navbar-right
@@ -32,7 +32,7 @@ html
           hr
           p.pull-right ForeverJS is an opensource app written by 
             a(href="http://ansals.me") me
-            |. Get source code over 
+            |. Get source code 
             a(href="https://github.com/ansal/foreverjs") here
             |.
 

@@ -12,11 +12,17 @@ block content
 
 block navLinks
   li
-    a(href="#/app") Dashboard
+    a(href="#/app")
+      span.glyphicon.glyphicon-home
+      |  Dashboard
   li
-    a#addArticleLink(href="#") Article
+    a#showArticleModal(href="#")
+      span.glyphicon.glyphicon-plus
+      |  Article
   li
-    a(href="/logout") Logout
+    a(href="/logout")
+      span.glyphicon.glyphicon-log-out
+      |  Logout
 
 block templates
   script#articleBoxTemplate(type="text/template")
@@ -25,7 +31,7 @@ block templates
     small.text-muted(style="margin-bottom:-100px")
       |<%= Forever.utils.printDate(article.get('date')) %>
     hr
-    p <%= $( article.get('article') ).text().slice(0, 100) %> ...
+    p <%= $('<div></div>').html(article.get('article')).text().slice(0, 100) %> ...
     br
     small
       |Source: 
@@ -57,6 +63,28 @@ block templates
     hr
     p
       <%= article.get('article') %>
+
+  // new article modal popup
+  div.modal.fade#newArticleModal(tabindex="-1", role="dialog", aria-labelledby="articleModalLabel", aria-hidden="true")
+    div.modal-dialog.modal-sm
+      div.modal-content
+        div.modal-header
+          h4.modal-title#articleModalLabel Add new article to ForeverJS!
+        div.modal-body
+          div.alert.alert-danger#newUrlErrorAlert(role="alert")
+            strong Oh No!
+            |  I need a valid URL!
+          div.form-group#urlFormGroup
+            label(for="newArticleUrl") Url
+            input.form-control#newArticleUrl(type=text, placeholder="Enter url of the article")
+          div.form-group
+          label(for="newArticleTags") Tags
+          input.form-control#newArticleTags(type=text, placeholder="Enter tags seperated by comma")
+        div.modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") Cancel
+          button.btn.btn-primary#saveNewArticleButton(type="button")
+            span.glyphicon.glyphicon-plus
+            | Add
 
 block pageScripts
   script(src="/js/lib/underscore.min.js")

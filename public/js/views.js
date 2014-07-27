@@ -5,6 +5,9 @@ var Forever = Forever || {};
 
 (function(){
 
+  // dom elements common to all views
+  var $progressAnim = $('#progressAnim');
+
   // List view for articles
   // Also handles events for add and delete actions
   Forever.ArticleListView = Backbone.View.extend({
@@ -15,13 +18,16 @@ var Forever = Forever || {};
       this.$appContainer = $('#app-container');
 
       // listen to collection events
+      this.listenTo(Forever.Articles, 'add', this.addOneArticleBox);
       this.listenTo(Forever.Articles, 'reset', this.articlesReset);
 
     },
 
     addOneArticleBox: function(article) {
       var view = new ArticleBoxView({ model: article});
-      this.$appContainer.append(view.render().$el);
+      this.$appContainer.prepend(view.render().$el);
+      // hide progress bar
+      $progressAnim.hide();
     },
 
     addAllArticleBoxes: function() {
@@ -29,11 +35,13 @@ var Forever = Forever || {};
     },
 
     articlesReset: function() {
+      Forever.AppState.articlesReset = true;
       window.location.href = "#/app";
     }
 
   });
 
+  // Single article view in dashboard, rendered as a box
   var ArticleBoxView = Backbone.View.extend({
 
     tagName: 'div',
@@ -69,6 +77,7 @@ var Forever = Forever || {};
 
   });
 
+  // Full article preview, rendered in article/:id
   Forever.ArticlePreviewView = Backbone.View.extend({
 
     tagName: 'div',
@@ -82,6 +91,55 @@ var Forever = Forever || {};
       });
       this.$el.html(html);
       return this;
+    }
+
+  });
+
+  // View for adding a new article inside the app
+  Forever.AddArticleView = Backbone.View.extend({
+
+    el: '#app-body',
+
+    events: {
+      'click #showArticleModal': 'showArticleModal',
+      'click #saveNewArticleButton': 'saveNewArticle'
+    },
+
+    initialize: function() {
+      this.$newArticleModal = $('#newArticleModal');
+      this.$newUrlErrorAlert = $('#newUrlErrorAlert');
+      this.$urlFormGroup = $('#urlFormGroup');
+      this.$newArticleUrl = $('#newArticleUrl');
+      this.$newArticleTags = $('#newArticleTags');
+    },
+
+    showArticleModal: function(e) {
+      e.preventDefault();
+      // clear all fields and errors and then show the modal
+      this.$newUrlErrorAlert.hide();
+      this.$urlFormGroup.removeClass('has-error');
+      this.$newArticleModal.modal('show');
+    },
+
+    saveNewArticle: function(e) {
+      e.preventDefault();
+      var url = this.$newArticleUrl.val().trim();
+      if(!url) {
+        this.$newUrlErrorAlert.show('fast');
+        this.$urlFormGroup.addClass('has-error');
+        return;
+      }
+      var tags = this.$newArticleTags.val();
+
+      $progressAnim.show();
+      Forever.Articles.create({
+        url: url,
+        tags: tags
+      }, {
+        wait: true
+      });
+      this.$newArticleModal.modal('hide');
+
     }
 
   });

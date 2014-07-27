@@ -19,8 +19,12 @@ var Forever = Forever || {};
     return d.toDateString() + ', ' + d.toLocaleTimeString();
   }
 
+  // simple state for keeping client side state
+  Forever.AppState = {};
+
   // create a new list view and listen for events
   Forever.homeListView = new Forever.ArticleListView();
+  Forever.addArticleView = new Forever.AddArticleView();
 
   // start backbone routing
   Forever.Router = new Forever.appRouter();

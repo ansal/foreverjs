@@ -16,6 +16,11 @@ var Forever = Forever || {};
     },
 
     homePage: function() {
+      // if the articles has not loaded yet, do a page refresh by going to home page
+      if(!Forever.AppState.articlesReset){
+        window.location.href = '/';
+        return;
+      }
       $container.html('');
       Forever.homeListView.addAllArticleBoxes();
       $progressAnim.hide();
