@@ -1,7 +1,8 @@
 /* Custom styles for ForeverJS App */
 
 body {
-  background: url('/img/bg.png')
+  background: url('/img/bg.png');
+  font-family: 'Open Sans', sans-serif;
 }
 
 #app-container {
@@ -20,4 +21,16 @@ body {
 
 .bookmarklet { 
   cursor: copy;
+}
+
+.navbar-default{
+  background-color: lemonchiffon;
+}
+
+.appContent {
+  margin-top: 50px;
+}
+
+.jumbotronContent {
+  margin-top: 30px;
 }

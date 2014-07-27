@@ -1,14 +1,58 @@
 extends layout
 
+block navLinks
+  li
+    a(href="#", data-toggle="modal", data-target="#loginModal")
+      span.glyphicon.glyphicon-log-out
+      |  Login
+
 block content
   div.row
-    div.col-md-12
-      h1 Welcome to Node Express Mongoose Boilerplate
-      p Login with anyone of the following -
-      ul
-        li 
-          a(href="/auth/login/google") Google
-        li 
-          a(href="/auth/login/facebook") Facebook
-        li 
-          a(href="/auth/login/twitter") Twitter
+    div.col-md-offset-2.col-md-8.articlePreview.jumbotronContent
+      h1 Welcome to ForeverJS!
+        br
+        small ForeverJS lets you save web articles to read later.
+      hr
+      div.col-md-4
+        h3 Simple to Use
+        p ForeverJS comes with a Bookmarklet that can be used to to save web pages while you are browsing the web. You can also add articles inside the web app!
+
+      div.col-md-4
+        h3 Save Forever
+        p When you save an article using ForeverJS, the article is saved in our servers. So even if the original site goes offline, you can always enjoy the saved article from ForeverJS site!
+
+      div.col-md-4
+        h3 Readability
+        p Do you love 
+          a(target="_blank", href="https://www.readability.com/") Readability
+          | ? Then we have good news for you! ForeverJS converts your articles into a clean and readable form before saving, just like Readability!
+
+      hr
+
+      div.col-md-offset-4.col-md-4
+        h3
+          a.btn.btn-lg.btn-success(href="#", data-toggle="modal", data-target="#loginModal")
+            span.glyphicon.glyphicon-log-out
+            |   Signup Now!
+
+      div.col-md-12
+        h1
+        hr
+
+  div#loginModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='loginModalLabel', aria-hidden='true')
+    div.modal-dialog.modal-sm
+      div.modal-content
+        div.modal-header
+          h4#loginModalLabel.modal-title ForeverJS Login
+        div.modal-body
+          a.btn.btn-block.btn-social.btn-lg.btn-google-plus(href='/auth/login/google/')
+            i.fa.fa-google-plus
+            | Sign in with Google
+          a.btn.btn-block.btn-social.btn-lg.btn-facebook(href='/auth/login/facebook/')
+            i.fa.fa-facebook
+            | Sign in with Facebook
+          a.btn.btn-block.btn-social.btn-lg.btn-twitter(href='/auth/login/twitter/')
+            i.fa.fa-twitter
+            | Sign in with Twitter
+        div.modal-footer
+          | No Spam. Promise.

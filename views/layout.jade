@@ -3,11 +3,14 @@ html
   head
     title Forever JS!
     link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/font-awesome.css')
+    link(rel='stylesheet', href='/css/bootstrap-social.css')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans')
     link(rel='stylesheet', href='/css/styles.css')
   body#app-body
 
     // navigation bar
-    nav.navbar.navbar-default(role="navigation")
+    nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
       div.container-fluid
         div.navbar-header
           button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-links-1")
@@ -16,14 +19,17 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href="/") ForeverJS 
-            img#progressAnim(src="/img/loading.gif", height="25px")
+            img#progressAnim(src="/img/loading.gif", height="25px", style="display:none;")
 
         div.collapse.navbar-collapse#navbar-collapse-links-1
           ul.nav.navbar-nav.navbar-right
             block navLinks
 
+    // jumbotron if any
+    block jumbotron
+
     // app body
-    div.container-fluid
+    div.container-fluid.appContent
 
       block content
 
