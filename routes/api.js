@@ -35,6 +35,8 @@ module.exports.CreateArticle = function(req, res) {
   var tags = [];
   if (typeof req.body.tags === 'string') {
     tags = req.body.tags.split(',');
+    // strip out all white spaces
+    tags = tags.map(function(x){ return x.trim(); })
   }
 
   // build the article object to be saved
@@ -52,7 +54,7 @@ module.exports.CreateArticle = function(req, res) {
     
     // if an error occured, just save the object without the article &
     // title content
-    if(err) {
+    if(err || !extract.content) {
       console.log(err);
     } else {
       article.title = extract.title;

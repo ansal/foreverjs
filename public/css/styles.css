@@ -4,12 +4,12 @@ body {
   background: url('/img/bg.png')
 }
 
-#articleContainer {
+#app-container {
   margin-left: 12%;
 }
 
 .articleBox {
-  height: 250px;
+  height: 320px;
   background: white;
   margin: 20px;
 }

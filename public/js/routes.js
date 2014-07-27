@@ -6,11 +6,19 @@ var Forever = Forever || {};
 (function(){
 
   var $container = $('#app-container');
+  var $progressAnim = $('#progressAnim');
 
-  var Router = Backbone.Router.extend({
+  Forever.appRouter = Backbone.Router.extend({
 
     routes: {
+      'app': 'homePage',
       'article/:id': 'showArticle'
+    },
+
+    homePage: function() {
+      $container.html('');
+      Forever.homeListView.addAllArticleBoxes();
+      $progressAnim.hide();
     },
 
     showArticle: function(id) {
@@ -20,8 +28,5 @@ var Forever = Forever || {};
     }
 
   });
-
-  Forever.Router = new Router();
-  Backbone.history.start();
 
 })();

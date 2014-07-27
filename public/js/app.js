@@ -13,8 +13,17 @@ var Forever = Forever || {};
     parser.href = url;
     return parser.hostname;
   };
+  // returns neatly formatted date
+  Forever.utils.printDate = function(date) {
+    var d = new Date(date);
+    return d.toDateString() + ', ' + d.toLocaleTimeString();
+  }
 
   // create a new list view and listen for events
-  var listView = new Forever.ArticleListView();
+  Forever.homeListView = new Forever.ArticleListView();
+
+  // start backbone routing
+  Forever.Router = new Forever.appRouter();
+  Backbone.history.start();
 
 })();

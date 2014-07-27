@@ -8,39 +8,68 @@ block content
         = user.name
         |!
 
-  div.row#articleContainer
+  div.row#app-container
 
 block navLinks
   li
-    a(href="/logout") Add Article
+    a(href="#/app") Dashboard
+  li
+    a#addArticleLink(href="#") Article
   li
     a(href="/logout") Logout
-
-block pageScripts
-  // for bootstrapping backbone models
-  script
-    | Forever.Articles.reset(
-    != articles
-    |);
 
 block templates
   script#articleBoxTemplate(type="text/template")
     h4 
       a(href!="#/article/<%= article.get('_id') %>") <%= article.get('title') %>
+    small.text-muted(style="margin-bottom:-100px")
+      |<%= Forever.utils.printDate(article.get('date')) %>
     hr
-    p <%= article.get('article').slice(0, 100) %> ...
-    hr
+    p <%= $( article.get('article') ).text().slice(0, 100) %> ...
+    br
     small
       |Source: 
       a(target="_blank", href!="<%= article.get('url') %>") <%= Forever.utils.getHostname(article.get('url')) %>
     br
     small Tags: 
-      |<% _.each(article.get('tags'), function(tag){ %>
-      a(href="#")<%= tag %>,
+      |<% _.each(article.get('tags'), function(tag, index, tags){ %>
+      a(href="#")<%= tag %><%= index + 1 === tags.length ? '' : ', ' %>
       |<%  }); %>
+    hr
+    small
+      a.text-danger.articleRemoveLink(href="#") Delete
 
   script#articlePreviewTemplate(type="text/template")
-    h4 <%= article.get('title') %>
+    h3 <%= article.get('title') %>
+      br
+      small.text-muted(style="margin-bottom:-100px")
+        |<%= Forever.utils.printDate(article.get('date')) %>
+    small Tags: 
+      |<% _.each(article.get('tags'), function(tag, index, tags){ %>
+      a.text-info(href="#")<%= tag %><%= index + 1 === tags.length ? '' : ', ' %>
+      |<%  }); %>
+    br
+    small
+      a(target="_blank", href!="<%= article.get('url') %>") Link to Article, 
+      a.text-danger.articleRemoveLink(href="#") Delete
+    br
+    a.text-muted.pull-right(href="#/app") Back to Dashboard
     hr
     p
       <%= article.get('article') %>
+
+block pageScripts
+  script(src="/js/lib/underscore.min.js")
+  script(src="/js/lib/backbone.min.js")
+
+  // backbone app
+  script(src="/js/models.js")
+  script(src="/js/collections.js")
+  script(src="/js/views.js")
+  script(src="/js/routes.js")
+  script(src="/js/app.js")
+  // for bootstrapping backbone models
+  script
+    | Forever.Articles.reset(
+    != articles
+    |);
