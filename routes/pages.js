@@ -24,8 +24,6 @@ exports.index = function(req, res){
       return;
     }
 
-    console.log(articles)
-
     res.render('user', {
       user: req.user,
       articles: JSON.stringify(articles)

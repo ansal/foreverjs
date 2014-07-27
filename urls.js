@@ -43,4 +43,5 @@ module.exports = function(app, passport) {
   app.get('/api/article', utils.restrictUser, apis.AllArticles);
   app.post('/api/article', utils.restrictUser, apis.CreateArticle);
   app.delete('/api/article/:id', utils.restrictUser, apis.DeleteArticle);
+  app.get('/api/bookmarklet/article', apis.bookmarkletAPI);
 }

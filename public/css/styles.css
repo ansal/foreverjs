@@ -17,3 +17,7 @@ body {
 .articlePreview {
   background: white;
 }
+
+.bookmarklet { 
+  cursor: copy;
+}

@@ -99,3 +99,57 @@ module.exports.DeleteArticle = function(req, res) {
   });
 
 };
+
+// jsonp callback for bookmarklets
+// GET /api/bookmarklet/callback=?&article?url=......
+module.exports.bookmarkletAPI = function(req, res) {
+
+  // somehow utils.restrictuser is not working
+  // so manually checking here for login
+  if(!req.user) {
+    res.jsonp(403, {error: true});
+    return;
+  }
+
+  // validate url field
+  var url = req.query.url;
+  if(!url) {
+    res.jsonp({error: true});
+    return;
+  }
+
+  // build the article object to be saved
+  // defaults for title and articles are also updated
+  var article = {
+    user: req.user,
+    title: 'Unknown Article',
+    url: url,
+    article: 'No content to show!',
+    tags: []
+  }
+
+  // use readability module to try extracting the main content of the page
+  readability(url, function(err, extract, meta){
+    
+    // if an error occured, just save the object without the article &
+    // title content
+    if(err || !extract.content) {
+      console.log(err);
+    } else {
+      article.title = extract.title;
+      article.article = extract.content;
+    }
+
+    // finally save the model
+    var articleObject = new Article(article);
+    articleObject.save(function(err){
+      if(err) {
+        console.log(err);
+        res.send(500, {error:true});
+        return;
+      }
+      res.jsonp(articleObject);
+    });
+  });
+
+}
