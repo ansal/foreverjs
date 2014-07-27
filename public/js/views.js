@@ -83,7 +83,15 @@ var Forever = Forever || {};
     tagName: 'div',
     className: 'col-md-offset-1 col-md-8 articlePreview',
 
+    events: {
+      'click .articleRemoveLink': 'removeArticle'
+    },
+
     template: _.template( $('#articlePreviewTemplate').html() ),
+
+    initialize: function() {
+      this.listenTo(this.model, 'destroy', this.removeView);
+    },
 
     render: function() {
       var html = this.template({
@@ -91,6 +99,19 @@ var Forever = Forever || {};
       });
       this.$el.html(html);
       return this;
+    },
+
+    removeArticle: function(e) {
+      e.preventDefault();
+      var confirmation = window.confirm('There is no going back!\n\nAre you sure?')
+      if(confirmation) {
+        this.model.destroy();
+      }
+    },
+
+    removeView: function() {
+      this.remove();
+      window.history.back();
     }
 
   });
